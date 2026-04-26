@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GrassCollider : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class GrassCollider : MonoBehaviour
             if (randomValue < _currentProbability)
             {
                 _currentProbability = 0f; 
-                Debug.Log("A wild Pokémon appears!");
+                SceneManager.LoadScene("Battle");
             }
         }
 

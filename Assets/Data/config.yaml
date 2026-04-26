@@ -1,0 +1,15 @@
+pokemon_rate: 
+  green_grass: 
+    - bulbasaur :
+        rate: 0.2
+    - oddish :
+        rate: 0.3
+    - bellsprout :  
+        rate: 0.5
+  water:
+    - squirtle :
+        rate: 0.4
+    - psyduck :
+        rate: 0.4
+    - magikarp :  
+        rate: 0.2

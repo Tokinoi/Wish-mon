@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator _animator = null;
 
     private NPCCollider _currentNPC = null;
-
     private void Interact()
     {
         if (_currentNPC == null) return;
@@ -21,6 +20,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0) return; // Skip update when game is paused
         Vector2 move = _moveRef.action.ReadValue<Vector2>();
         bool isWalking = move.magnitude > 0.1f;
         _animator.SetBool("isWalking", isWalking);
@@ -49,4 +49,5 @@ public class Player : MonoBehaviour
 
         _currentNPC = detected;
     }
+
 }

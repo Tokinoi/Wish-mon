@@ -1,0 +1,44 @@
+pokemon:
+  bulbasaur:
+    type: grass
+    hp:
+      min: 45
+      max: 49
+    attack: 49
+    defense: 49
+    speed: 45
+
+  oddish:
+    type: grass
+    hp: 45
+    attack: 50
+    defense: 55
+    speed: 30
+
+  bellsprout:
+    type: grass
+    hp: 50
+    attack: 75
+    defense: 35
+    speed: 40
+
+  squirtle:
+    type: water
+    hp: 44
+    attack: 48
+    defense: 65
+    speed: 43
+
+  psyduck:
+    type: water
+    hp: 50
+    attack: 52
+    defense: 48
+    speed: 55
+
+  magikarp:
+    type: water
+    hp: 20
+    attack: 10
+    defense: 55
+    speed: 80
