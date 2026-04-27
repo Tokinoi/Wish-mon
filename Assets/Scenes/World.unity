@@ -4706,6 +4706,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1483143579}
     m_Modifications:
     - target: {fileID: 2204374365393298368, guid: c99fdcf5d27a4964f90b8915dedd41cf, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: a466a366ee2d8ec4ca85ef36dbbb6de7, type: 2}
+    - target: {fileID: 2204374365393298368, guid: c99fdcf5d27a4964f90b8915dedd41cf, type: 3}
       propertyPath: _grassCount
       value: 2500
       objectReference: {fileID: 0}
@@ -6387,6 +6391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _playerPosition: {x: -80.5, y: 0.86952156, z: -12.24}
   _playerRotation: {x: 0, y: 0, z: 0, w: 1}
+  EncounteredPokemon: {fileID: 0}
   SaveData:
     _teamPokemon: []
     _boxPokemon: []
@@ -12018,6 +12023,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1483143579}
     m_Modifications:
+    - target: {fileID: 2204374365393298368, guid: c99fdcf5d27a4964f90b8915dedd41cf, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: effcaab36b1d0044783e9e6098870809, type: 2}
     - target: {fileID: 2204374365393298368, guid: c99fdcf5d27a4964f90b8915dedd41cf, type: 3}
       propertyPath: _grassCount
       value: 15000

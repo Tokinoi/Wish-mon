@@ -6,10 +6,10 @@ public class GrassCollider : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _grassPrefabs = new();
     [SerializeField] private float _grassDensity = 1f;
+    [SerializeField] private GrassConfig _config;
     private Player player = null;
-    [SerializeField] private float _encounterProbability = 0.001f;
     private float _currentProbability = 0f;
-    
+
 
     private void Start()
     {
@@ -49,25 +49,41 @@ public class GrassCollider : MonoBehaviour
     {
         if (player != null)
         {
-            _currentProbability += _encounterProbability;
+            _currentProbability += _config.encounterRate * Time.deltaTime;
             float randomValue = Random.Range(0f, 100f);
             if (randomValue < _currentProbability)
             {
                 _currentProbability = 0f;
                 player.prepareCombat();
+                GameManager.Instance.EncounteredPokemon = generateEncounter();
                 SceneManager.LoadScene("Battle");
             }
         }
 
-        if (player == null || _currentProbability > 0f)
+        if (player == null && _currentProbability > 0f)
         {
             _currentProbability = 0f; 
         }
     }
 
-    private void generateEncounter()
+    private PokemonData generateEncounter()
     {
-        
+      float total = 0f;
+      foreach (var entry in _config.pokemonPool)
+          total += entry.Chance;
+
+      float roll = Random.Range(0f, total);
+      float cumulative = 0f;
+
+      foreach (var entry in _config.pokemonPool)
+      {
+          cumulative += entry.Chance;
+          if (roll < cumulative)
+              return entry.Pokemon;
+      }
+
+      return _config.pokemonPool[_config.pokemonPool.Count - 1].Pokemon;
+
     }
 
 

@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4293ad5fff791094ab93628208fe7a56, type: 3}
-  m_Name: GreenGrassConfig
+  m_Script: {fileID: 0}
+  m_Name: GrassConfig 1
   m_EditorClassIdentifier: Assembly-CSharp::GrassConfig
-  pokemonPool: []
-  encounterRate: 0.2
+  pokemonPool:
+  - Pokemon: {fileID: 11400000, guid: 913eac8095bb9f846b6aa15dd7afd07e, type: 2}
+    Chance: 100
+  encounterRate: 1
