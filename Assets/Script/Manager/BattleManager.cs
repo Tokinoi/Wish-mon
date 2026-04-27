@@ -20,23 +20,24 @@ public class BattleManager : MonoBehaviour
 
   private void Start()
     {
-        WishemonData playerWishemon = GameManager.Instance.GetFirstWishemon();
+        WishemonSaveData playerData = GameManager.Instance.GetFirstWishemon();
+        if (playerData == null) { FleeCombat(); return; }
+
         Wishemon playerWishemonInstance = new GameObject("PlayerWishemon").AddComponent<Wishemon>();
-        playerWishemonInstance.Initialize(playerWishemon);
+        playerWishemonInstance.Initialize(playerData);
         playerWishemonInstance.transform.SetParent(_playerSpawnPoint.transform);
         playerWishemonInstance.transform.localPosition = Vector3.zero;
         playerWishemonInstance.transform.localRotation = Quaternion.identity;
-        
 
-        WishemonData enemyWishemon = GameManager.Instance.EncounteredWishemon;
+        WishemonSaveData enemyData = new WishemonSaveData(GameManager.Instance.EncounteredWishemon);
         Wishemon enemyWishemonInstance = new GameObject("EnemyWishemon").AddComponent<Wishemon>();
-        enemyWishemonInstance.Initialize(enemyWishemon);
+        enemyWishemonInstance.Initialize(enemyData);
         enemyWishemonInstance.transform.SetParent(_wishemonSpawnPoint.transform);
         enemyWishemonInstance.transform.localPosition = Vector3.zero;
         enemyWishemonInstance.transform.localRotation = Quaternion.identity;
     }
 
-    // Create Pokémon 
+    // Create Wishemon
     // Handle dgt 
     // Handle turns
 
@@ -52,7 +53,7 @@ public class BattleManager : MonoBehaviour
 
     public void FleeCombat()
     {
-        SceneManager.LoadScene("World");
+        SceneManager.LoadScene(SceneNames.World);
     }
 
     public void OpenBag()
@@ -65,7 +66,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Opening WishemonPedia during Combat!");
     }
 
-    public void openAttackMenu()
+    public void OpenAttackMenu()
     {
         Debug.Log("Opening Attack Menu during Combat!");
     }

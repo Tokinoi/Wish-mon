@@ -944,12 +944,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 48812303895098559, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 48812303895098559, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 48812303895098559, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 48812303895098559, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -83
+      value: -33
+      objectReference: {fileID: 0}
+    - target: {fileID: 79293004782976277, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 79293004782976277, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 79293004782976277, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 79293004782976277, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -255
+      value: -132
       objectReference: {fileID: 0}
     - target: {fileID: 188196847138784910, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
       propertyPath: _pauseRef
@@ -1012,8 +1036,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6510241408135937910, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510241408135937910, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510241408135937910, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510241408135937910, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 216
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975659206390994552, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975659206390994552, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975659206390994552, guid: f975a8909fbc57745a42a1de849e4d67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6398,7 +6446,9 @@ MonoBehaviour:
   EncounteredWishemon: {fileID: 0}
   SaveData:
     _teamWishemon:
-    - {fileID: 11400000, guid: 8c9f2d2373103f84796e9db0ba860ef5, type: 2}
+    - Data: {fileID: 11400000, guid: 8c9f2d2373103f84796e9db0ba860ef5, type: 2}
+      CurrentHP: 50
+      Level: 5
     _boxWishemon: []
     _capturedWishemonNames: []
     _encounteredWishemonNames: []

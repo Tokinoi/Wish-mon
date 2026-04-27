@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public SaveData SaveData = new SaveData();
 
-    public WishemonData getWishemonData()
+    public WishemonData GetWishemonData()
     {
        return EncounteredWishemon;
     }
@@ -27,15 +27,14 @@ public class GameManager : MonoBehaviour
 
     }
     
-    public WishemonData GetFirstWishemon()
+    public WishemonSaveData GetFirstWishemon()
     {
-        int index = 0;
-        while(SaveData._teamWishemon[index].currentHP <= 0)
+        for (int i = 0; i < SaveData._teamWishemon.Count; i++)
         {
-            Debug.Log("Wishemon " + SaveData._teamWishemon[index].currentHP + " is fainted. Checking next Wishemon...");
-            index++;
+            if (SaveData._teamWishemon[i].CurrentHP > 0)
+                return SaveData._teamWishemon[i];
         }
-        return SaveData._teamWishemon[index];
+        return null;
     }
 
 }

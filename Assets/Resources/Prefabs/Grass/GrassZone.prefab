@@ -130,4 +130,4 @@ MonoBehaviour:
   - {fileID: 7635313739072104557, guid: 59e76ff7d86ccd744822dec756dce423, type: 3}
   - {fileID: 7635313739072104557, guid: e596bd4c8c1b438428c42109b2a1d7a5, type: 3}
   _grassDensity: 6
-  _encounterProbability: 0.001
+  _config: {fileID: 11400000, guid: effcaab36b1d0044783e9e6098870809, type: 2}

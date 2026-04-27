@@ -56,7 +56,7 @@ public class GrassCollider : MonoBehaviour
                 _currentProbability = 0f;
                 player.prepareCombat();
                 GameManager.Instance.EncounteredWishemon = generateEncounter();
-                SceneManager.LoadScene("Battle");
+                SceneManager.LoadScene(SceneNames.Battle);
             }
         }
 
@@ -66,25 +66,7 @@ public class GrassCollider : MonoBehaviour
         }
     }
 
-    private WishemonData generateEncounter()
-    {
-      float total = 0f;
-      foreach (var entry in _config.wishemonPool)
-          total += entry.Chance;
-
-      float roll = Random.Range(0f, total);
-      float cumulative = 0f;
-
-      foreach (var entry in _config.wishemonPool)
-      {
-          cumulative += entry.Chance;
-          if (roll < cumulative)
-              return entry.Wishemon;
-      }
-
-      return _config.wishemonPool[_config.wishemonPool.Count - 1].Wishemon;
-
-    }
+    private WishemonData generateEncounter() => WishemonEncounterPicker.Pick(_config.wishemonPool);
 
 
 

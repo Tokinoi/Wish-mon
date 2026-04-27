@@ -5,11 +5,10 @@ public class WishemonData : ScriptableObject
 {
     public string Name;
     public int Level;
-    public int currentHP ;
-    public int maxHP ;
-    public int attack ;
-    public int defense ;
-    public int speed ;
-    public WishemonTypes type ;
+    public int MaxHP;
+    public int Attack;
+    public int Defense;
+    public int Speed;
+    public WishemonTypes Type;
     public GameObject WishemonPrefab;
 }

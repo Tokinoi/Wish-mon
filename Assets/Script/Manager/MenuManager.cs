@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour
     public void SaveAndQuit()
     {
         Debug.Log("Game Saved! Quitting...");
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(SceneNames.MainMenu);
     }
 
     public void Bag()

@@ -15,7 +15,7 @@ public class TitleMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("World");
+        SceneManager.LoadScene(SceneNames.World);
     }
 
     public void LeaveGame()
