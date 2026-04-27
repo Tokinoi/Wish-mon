@@ -3,11 +3,10 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SaveData
 {
-    public List<PokemonData> _teamPokemon= new List<PokemonData>();
-    public List<PokemonData> _boxPokemon = new List<PokemonData>();
-    public List<string> _capturedPokemonNames = new List<string>();
-    public List<string> _defeatedTrainerNames = new List<string>();
-    public List<string> _encounteredPokemonNames = new List<string>();
+    public List<WishemonData> _teamWishemon = new List<WishemonData>();
+    public List<WishemonData> _boxWishemon = new List<WishemonData>();
+    public List<WishemonData> _capturedWishemonNames = new List<WishemonData>();
+    public List<WishemonData> _encounteredWishemonNames = new List<WishemonData>();
     public List<ItemData> _inventoryItems = new List<ItemData>();
     // Add more fields as needed for your game
 }

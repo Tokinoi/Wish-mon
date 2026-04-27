@@ -44,9 +44,9 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Opening Bag...");
     }
 
-    public void MonsterPedia()
+    public void WishemonPedia()
     {
-        Debug.Log("Opening MonsterPedia...");
+        Debug.Log("Opening WishemonPedia...");
     }
 
     public void Teams()

@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ca6a1eb85af137479bacdebc06b28bf, type: 3}
-  m_Name: PokemonData
+  m_Name: Strantberry
   m_EditorClassIdentifier: Assembly-CSharp::PokemonData
-  Name: PollentA
+  Name: Strantberry
   Level: 2
-  HP: 14
-  Attack: 3
-  Defense: 4
-  Speed: 3
-  types: 1
-  PokemonPrefab: {fileID: 3087033355223824952, guid: a3341b395bc0d3c4ba82e74641b3d1b6, type: 3}
+  currentHP: 10
+  maxHP: 10
+  attack: 3
+  defense: 1
+  speed: 2
+  type: 0
+  WishemonPrefab: {fileID: 3270750504789186957, guid: c5aa361d542d1df4fb6469dac110c371, type: 3}

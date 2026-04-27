@@ -6,13 +6,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Vector3 _playerPosition = Vector3.zero;
     [SerializeField] public Quaternion _playerRotation = Quaternion.identity;
 
-    public PokemonData EncounteredPokemon;
+    public WishemonData EncounteredWishemon;
 
     public SaveData SaveData = new SaveData();
 
-    public PokemonData getMonsterData()
+    public WishemonData getWishemonData()
     {
-       return EncounteredPokemon;
+       return EncounteredWishemon;
     }
 
     private void Awake()
@@ -27,5 +27,15 @@ public class GameManager : MonoBehaviour
 
     }
     
+    public WishemonData GetFirstWishemon()
+    {
+        int index = 0;
+        while(SaveData._teamWishemon[index].currentHP <= 0)
+        {
+            Debug.Log("Wishemon " + SaveData._teamWishemon[index].currentHP + " is fainted. Checking next Wishemon...");
+            index++;
+        }
+        return SaveData._teamWishemon[index];
+    }
 
 }

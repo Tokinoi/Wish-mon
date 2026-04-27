@@ -1,4 +1,4 @@
-public enum PokemonTypes
+public enum WishemonTypes
 {
     Normal,
     Fire,
