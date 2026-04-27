@@ -1,61 +1,75 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GrassCollider : MonoBehaviour
 {
-    [SerializeField] private GameObject _grassPrefab = null;
-    [SerializeField] private int _grassCount = 20;
-
-    bool isPlayerInGrass = false;
+    [SerializeField] private List<GameObject> _grassPrefabs = new();
+    [SerializeField] private float _grassDensity = 1f;
+    private Player player = null;
     [SerializeField] private float _encounterProbability = 0.001f;
     private float _currentProbability = 0f;
+    
 
     private void Start()
     {
-        if (_grassPrefab == null) return;
+        if (_grassPrefabs == null || _grassPrefabs.Count == 0) return;
+
+        GameObject container = new GameObject("GrassInstances");
+        container.transform.SetParent(transform.parent);
+        container.transform.position = Vector3.zero;
 
         Bounds bounds = GetComponent<Collider>().bounds;
-        for (int i = 0; i < _grassCount; i++)
+        int grassCount = Mathf.RoundToInt(_grassDensity * bounds.size.x * bounds.size.z);
+        for (int i = 0; i < grassCount; i++)
         {
             Vector3 position = new Vector3(
                 Random.Range(bounds.min.x, bounds.max.x),
                 bounds.min.y,
                 Random.Range(bounds.min.z, bounds.max.z)
             );
-            Instantiate(_grassPrefab, position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f), transform);
+            GameObject prefab = _grassPrefabs[Random.Range(0, _grassPrefabs.Count)];
+            Instantiate(prefab, position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f), container.transform);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other is not CharacterController) return;
-        isPlayerInGrass = true;
+        player = other.GetComponent<Player>();
     }
 
     private void OnTriggerExit(Collider other)
     {
         if(other is not CharacterController) return;
-        isPlayerInGrass = false;
+        player = null;
     }
 
     private void Update()
     {
-        if (isPlayerInGrass)
+        if (player != null)
         {
             _currentProbability += _encounterProbability;
             float randomValue = Random.Range(0f, 100f);
             if (randomValue < _currentProbability)
             {
-                _currentProbability = 0f; 
+                _currentProbability = 0f;
+                player.prepareCombat();
                 SceneManager.LoadScene("Battle");
             }
         }
 
-        if (!isPlayerInGrass && _currentProbability > 0f)
+        if (player == null || _currentProbability > 0f)
         {
             _currentProbability = 0f; 
         }
     }
+
+    private void generateEncounter()
+    {
+        
+    }
+
 
 
 }
