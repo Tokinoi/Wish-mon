@@ -10,8 +10,10 @@ public class ProgressBar : MonoBehaviour
     public void SetValue(int value)
     {
         _currentValue = Mathf.Clamp(value, 0, _maxValue);
-        if (_fillImage != null)
+        if (_fillImage != null){
+            Debug.Log($"Setting progress bar value: {_currentValue}/{_maxValue}");
             _fillImage.fillAmount = (float)_currentValue / _maxValue;
+        }
     }
 
     public void SetMax(int maxValue)

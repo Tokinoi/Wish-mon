@@ -49,7 +49,7 @@ public class GrassCollider : MonoBehaviour
     {
         if (player != null)
         {
-            _currentProbability += _config.encounterRate * Time.deltaTime;
+            _currentProbability += 0.02f; //TODO 
             float randomValue = Random.Range(0f, 100f);
             if (randomValue < _currentProbability)
             {

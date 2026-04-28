@@ -6,9 +6,10 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private GameObject _wishemonSpawnPoint;
     [SerializeField] private GameObject _playerSpawnPoint;
-    [SerializeField] private GameObject PlayerHealthBar;
-    [SerializeField] private GameObject EnemyHealthBar;
-    
+    [SerializeField] private ProgressBar PlayerHealthBar;
+    [SerializeField] private ProgressBar EnemyHealthBar;
+    private int playerHP = 50;
+    private int enemyHP = 50;
 
   private void Awake()                            
   {                                      
@@ -17,6 +18,8 @@ public class BattleManager : MonoBehaviour
     Instance = this;                              
                              
   } 
+
+  
 
   private void Start()
     {
@@ -35,6 +38,13 @@ public class BattleManager : MonoBehaviour
         enemyWishemonInstance.transform.SetParent(_wishemonSpawnPoint.transform);
         enemyWishemonInstance.transform.localPosition = Vector3.zero;
         enemyWishemonInstance.transform.localRotation = Quaternion.identity;
+
+        EnemyHealthBar.SetMax(enemyHP);
+        EnemyHealthBar.SetValue(enemyHP);
+/*
+        PlayerHealthBar.SetMax(playerData.Data.MaxHP);
+        PlayerHealthBar.SetValue(playerData.CurrentHP);
+*/
     }
 
     // Create Wishemon
@@ -68,7 +78,14 @@ public class BattleManager : MonoBehaviour
 
     public void OpenAttackMenu()
     {
-        Debug.Log("Opening Attack Menu during Combat!");
+            enemyHP -= 10;
+            EnemyHealthBar.SetValue(enemyHP);
+            Debug.Log("Enemy HP: " + enemyHP);
+
+            if (enemyHP <= 0)
+            {
+                Debug.Log("Enemy dead");
+            }
     }
 
 }
