@@ -1,27 +1,26 @@
 using UnityEngine;
-
 public class Wishemon : MonoBehaviour
 {
-    public WishemonSaveData SaveData { get; private set; }
-    public int CurrentHP { get; private set; }
-    public int MaxHP { get; private set; }
-    public int Attack { get; private set; }
-    public int Defense { get; private set; }
-    public int Speed { get; private set; }
-    public WishemonTypes Type { get; private set; }
+    public WishemonState State { get; private set; }
 
-    public Wishemon Initialize(WishemonSaveData saveData)
+    public void Initialize(WishemonState state)
     {
-        SaveData = saveData;
-        CurrentHP = saveData.CurrentHP;
-        MaxHP = saveData.Data.MaxHP;
-        Attack = saveData.Data.Attack;
-        Defense = saveData.Data.Defense;
-        Speed = saveData.Data.Speed;
-        Type = saveData.Data.Type;
-        GameObject wishemon = Instantiate(saveData.Data.WishemonPrefab, transform);
-        wishemon.transform.localPosition = Vector3.zero;
-        wishemon.transform.localRotation = Quaternion.identity;
-        return this;
+        State = state;
+
+        GameObject model = Instantiate(State.Data.WishemonPrefab, transform);
+        model.transform.localPosition = Vector3.zero;
+        model.transform.localRotation = Quaternion.identity;
     }
+
+    public void Initialize(WishemonData data)
+    {
+        Initialize(new WishemonState(data));
+    }
+
+    public bool Capture()
+    {
+        float captureRate = 1f - (float)State.CurrentHP / State.MaxHP;
+        return Random.value < captureRate;
+    }
+
 }

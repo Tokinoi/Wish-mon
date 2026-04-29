@@ -1,12 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class WishemonEncounter
-{
-    public WishemonData Wishemon;
-    [Range(0f, 100f)] public float Chance;
-}
+
 
 [CreateAssetMenu(fileName = "GrassConfig", menuName = "Config/GrassZone")]
 public class GrassConfig : ScriptableObject

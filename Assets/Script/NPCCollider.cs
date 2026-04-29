@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class NPCCollider : MonoBehaviour
 {
-    public void OnInteract()
+    virtual public void OnInteract()
     {
-        Debug.Log("Interacting with NPC!");
+        Debug.Log("Interacting with NPC!ihkjh");
     }
 }
