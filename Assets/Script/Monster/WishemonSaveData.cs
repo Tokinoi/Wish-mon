@@ -10,7 +10,7 @@ public class WishemonSaveData
     public WishemonSaveData(WishemonData data)
     {
         Data = data;
-        CurrentHP = data.MaxHP;
+        CurrentHP = Mathf.RoundToInt(data.MaxHP.Evaluate(Level)); ;
         Level = data.Level;
     }
 

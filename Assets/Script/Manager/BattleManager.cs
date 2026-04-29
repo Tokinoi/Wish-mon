@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private GameObject _ActionChooser;
     [SerializeField] private GameObject _AttackMenu;
+    [SerializeField] private GameObject _TeamMenu;
 
     private Wishemon _playerWishemon;
     private Wishemon _enemyWishemon;
@@ -28,24 +29,70 @@ public class BattleManager : MonoBehaviour
   } 
 
   
-
-  private void Start()
+    private void InitPlayerWishemon(WishemonState playerData)
     {
-        WishemonState playerData = GameManager.Instance.GetFirstWishemon();
-        if (playerData == null) { FleeCombat(); return; }
-
+        if (_playerWishemon != null)
+        {
+            foreach (Transform child in _playerSpawnPoint.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+        }
         _playerWishemon = new GameObject("PlayerWishemon").AddComponent<Wishemon>();
         _playerWishemon.Initialize(playerData);
         _playerWishemon.transform.SetParent(_playerSpawnPoint.transform);
         _playerWishemon.transform.localPosition = Vector3.zero;
-        _playerWishemon.transform.localRotation = Quaternion.identity;
+        _playerWishemon.transform.localRotation = Quaternion.identity;       
 
-        WishemonState enemyData = new WishemonState(GameManager.Instance.EncounteredWishemon);
+    }
+
+    private void InitEnemyWishemon(WishemonState enemyState)
+    {
+        if (_enemyWishemon != null)
+        {
+            foreach (Transform child in _wishemonSpawnPoint.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+        }
         _enemyWishemon = new GameObject("EnemyWishemon").AddComponent<Wishemon>();
-        _enemyWishemon.Initialize(enemyData);
+        _enemyWishemon.Initialize(enemyState);
         _enemyWishemon.transform.SetParent(_wishemonSpawnPoint.transform);
         _enemyWishemon.transform.localPosition = Vector3.zero;
-        _enemyWishemon.transform.localRotation = Quaternion.identity;
+        _enemyWishemon.transform.localRotation = Quaternion.identity;       
+    }
+
+  private void Start()
+    {
+
+        if(GameManager.Instance.EncounteredWishemon == null)
+        {
+            Debug.Log($"GameManager.Instance.CurrentDresseur: {GameManager.Instance.CurrentDresseur}");
+            if(GameManager.Instance.CurrentDresseur != null)
+            {
+
+                InitEnemyWishemon(GameManager.Instance.CurrentDresseur.ChangePokemon());
+            }
+            else
+            {
+                Debug.LogError("No Wishemon or Dresseur to battle!");
+                FleeCombat();
+                return;
+            }
+
+        }else
+        {
+            InitEnemyWishemon(new WishemonState(GameManager.Instance.EncounteredWishemon));
+        }
+
+
+        
+        WishemonState playerData = GameManager.Instance.GetFirstWishemon();
+        if (playerData == null) { FleeCombat(); return; }
+
+        InitPlayerWishemon(playerData);
+
+;
 
         // TODO 
 
@@ -74,17 +121,68 @@ public class BattleManager : MonoBehaviour
 
     public void FleeCombat()
     {
-        SceneManager.LoadScene(SceneNames.World);
+        SceneManager.LoadScene("World 1");
     }
 
-    public void OpenBag()
+    public void OpenBag() //For now Capture then Bag 
     {
-        Debug.Log("Opening Bag during Combat!");
+        if(_enemyWishemon.Capture())
+        {
+            GameManager.Instance.CaptureWishemon(_enemyWishemon.State);
+            EndCombat(true);
+        }
+        else
+        {
+            Debug.Log("Failed to capture the enemy Wishemon!");
+            int playerHP = _playerWishemon.State.TakeDamage(_enemyWishemon.State.GetRandomMove(),_typesChart);
+            PlayerHealthBar.SetValue(playerHP);
+        }
     }
 
     public void OpenTeam()
     {
+        _TeamMenu.SetActive(true);
+        _ActionChooser.SetActive(false);
+
+        Button[] buttons = _TeamMenu.GetComponentsInChildren<Button>();
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            TextMeshProUGUI text = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
+            if (i < GameManager.Instance.wishemonTeams.Count)
+                text.text = GameManager.Instance.wishemonTeams[i].Data.Name;
+            else
+            {
+                text.text = "";
+                buttons[i].interactable = false;
+            }
+        }
         Debug.Log("Opening WishemonPedia during Combat!");
+    }
+
+    public void SwitchWishemon(int index)
+    {
+        if (index >= GameManager.Instance.wishemonTeams.Count) return;
+
+        WishemonState newWishemonData = GameManager.Instance.wishemonTeams[index];
+        if (newWishemonData.CurrentHP <= 0)
+        {
+            Debug.Log("Cannot switch to a fainted Wishemon!");
+            return;
+        }
+
+        InitPlayerWishemon(newWishemonData);
+        PlayerHealthBar.SetMax(_playerWishemon.State.MaxHP);
+        PlayerHealthBar.SetValue(_playerWishemon.State.CurrentHP);
+
+        _TeamMenu.SetActive(false);
+        _ActionChooser.SetActive(true);
+
+        Debug.Log($"Switched to {newWishemonData.Data.Name}!");
+        
+        int playerHP = _playerWishemon.State.TakeDamage(_enemyWishemon.State.GetRandomMove(),_typesChart);
+        PlayerHealthBar.SetValue(playerHP);
+
     }
 
     public void ChooseMove(int moveIndex)
@@ -103,6 +201,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             TextMeshProUGUI text = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
+            Debug.Log($"Move {i}: {_playerWishemon.State.Moves[i].Name}");
             text.text = _playerWishemon.State.Moves[i].Name;
         }
 
@@ -117,12 +216,33 @@ public class BattleManager : MonoBehaviour
 
             if (_enemyWishemon.State.IsDead)
             {
-                _playerWishemon.State.GainXP(100); //TODO
+                _playerWishemon.State.GainXP(100);
+                if (GameManager.Instance.CurrentDresseur != null)
+            {
+                WishemonState temp = GameManager.Instance.CurrentDresseur.ChangePokemon();
+                if (temp != null)
+                {
+                    InitEnemyWishemon(temp);
+                    EnemyHealthBar.SetMax(_enemyWishemon.State.MaxHP);
+                    EnemyHealthBar.SetValue(_enemyWishemon.State.CurrentHP);
+                    return;
+                }
+                else
+                {
+                    EndCombat(true);
+                    return;
+                }
+            }
+                 //TODO
                 EndCombat(true);
+                return;
             }
 
             int playerHP = _playerWishemon.State.TakeDamage(_enemyWishemon.State.GetRandomMove(),_typesChart);
             PlayerHealthBar.SetValue(playerHP);
+        
+        _AttackMenu.SetActive(false);
+        _ActionChooser.SetActive(true);
     }
 
     public void EndCombat(bool playerWon)
@@ -135,7 +255,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("Player lost the battle!");
         }
-        SceneManager.LoadScene("World");
+        SceneManager.LoadScene("World 1");
     }
 
 

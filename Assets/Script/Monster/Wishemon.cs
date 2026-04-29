@@ -17,4 +17,10 @@ public class Wishemon : MonoBehaviour
         Initialize(new WishemonState(data));
     }
 
+    public bool Capture()
+    {
+        float captureRate = 1f - (float)State.CurrentHP / State.MaxHP;
+        return Random.value < captureRate;
+    }
+
 }

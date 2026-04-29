@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Quaternion _playerRotation = Quaternion.identity;
 
     public WishemonData EncounteredWishemon;
+    public Dresseur CurrentDresseur;
 
     [SerializeField] public List<WishemonState> wishemonTeams = new List<WishemonState>();
     public WishemonData GetWishemonData()
@@ -43,6 +44,19 @@ public class GameManager : MonoBehaviour
         {
             wishemon.CurrentHP = wishemon.MaxHP;
         }
+    }
+    
+    public void CaptureWishemon(WishemonState captured)
+    {
+        if(wishemonTeams.Count >= 6) { Debug.Log("Team is full!"); return; }    
+        wishemonTeams.Add(captured);
+    }
+
+    public void StartBattle(Dresseur dresseur)
+    {
+        this.CurrentDresseur = dresseur;
+        Debug.Log($"Starting battle with {dresseur.Name}");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Battle");
     }
 
 }

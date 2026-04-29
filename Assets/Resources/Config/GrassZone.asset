@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4293ad5fff791094ab93628208fe7a56, type: 3}
   m_Name: GrassZone
   m_EditorClassIdentifier: Assembly-CSharp::GrassConfig
-  wishemonPool: []
-  encounterRate: 0.2
+  wishemonPool:
+  - Wishemon: {fileID: 11400000, guid: 33fc99d7551eda2499d9857ac25c9b58, type: 2}
+    Chance: 100
+  encounterRate: 1

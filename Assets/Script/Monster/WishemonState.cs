@@ -11,18 +11,12 @@ public class WishemonState
     public int CurrentHP;
     public int Level;
 
+    public int ExperienceToLevelUp => Mathf.RoundToInt(Data.experienceCurve.Evaluate(Level));   
     public int Experience = 0;
 
-    private int _bonusHP = 0;
-    private int _bonusAttack = 0;
-    private int _bonusDefense = 0;
-
-    public int MaxHP => Data.MaxHP + _bonusHP;
-    public int Attack => Data.Attack + _bonusAttack;
-    public int Defense => Data.Defense + _bonusDefense;
-    public int Speed => Data.Speed;
-
-    public int ExperienceToLevelUp => Level * 100;
+    public int MaxHP => Mathf.RoundToInt(Data.MaxHP.Evaluate(Level));
+    public int Attack => Mathf.RoundToInt(Data.Attack.Evaluate(Level));
+    public int Defense => Mathf.RoundToInt(Data.Defense.Evaluate(Level));
 
     public MoveData[] Moves;
 
@@ -30,10 +24,6 @@ public class WishemonState
     {
         Data = data;
         Level = data.Level;
-
-        _bonusHP = 0;
-        _bonusAttack = 0;
-        _bonusDefense = 0;
 
         GenerateMoves();
 
@@ -89,10 +79,6 @@ public void GenerateMoves()
         Level++;
 
         Debug.Log($"{Data.Name} leveled up to level {Level}!");
-
-        _bonusHP += 10;
-        _bonusAttack += 5;
-        _bonusDefense += 5;
 
         CurrentHP = MaxHP;
     }
