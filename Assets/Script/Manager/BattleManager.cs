@@ -8,8 +8,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject _playerSpawnPoint;
     [SerializeField] private ProgressBar PlayerHealthBar;
     [SerializeField] private ProgressBar EnemyHealthBar;
-    private int playerHP = 50;
-    private int enemyHP = 50;
+    [SerializeField] private TypeChart _typesChart;
+    private Wishemon _playerWishemon;
+    private Wishemon _enemyWishemon;
 
   private void Awake()                            
   {                                      
@@ -23,35 +24,38 @@ public class BattleManager : MonoBehaviour
 
   private void Start()
     {
-        WishemonSaveData playerData = GameManager.Instance.GetFirstWishemon();
+        WishemonState playerData = GameManager.Instance.GetFirstWishemon();
         if (playerData == null) { FleeCombat(); return; }
 
-        Wishemon playerWishemonInstance = new GameObject("PlayerWishemon").AddComponent<Wishemon>();
-        playerWishemonInstance.Initialize(playerData);
-        playerWishemonInstance.transform.SetParent(_playerSpawnPoint.transform);
-        playerWishemonInstance.transform.localPosition = Vector3.zero;
-        playerWishemonInstance.transform.localRotation = Quaternion.identity;
+        _playerWishemon = new GameObject("PlayerWishemon").AddComponent<Wishemon>();
+        _playerWishemon.Initialize(playerData);
+        _playerWishemon.transform.SetParent(_playerSpawnPoint.transform);
+        _playerWishemon.transform.localPosition = Vector3.zero;
+        _playerWishemon.transform.localRotation = Quaternion.identity;
 
-        WishemonSaveData enemyData = new WishemonSaveData(GameManager.Instance.EncounteredWishemon);
-        Wishemon enemyWishemonInstance = new GameObject("EnemyWishemon").AddComponent<Wishemon>();
-        enemyWishemonInstance.Initialize(enemyData);
-        enemyWishemonInstance.transform.SetParent(_wishemonSpawnPoint.transform);
-        enemyWishemonInstance.transform.localPosition = Vector3.zero;
-        enemyWishemonInstance.transform.localRotation = Quaternion.identity;
+        WishemonState enemyData = new WishemonState(GameManager.Instance.EncounteredWishemon);
+        _enemyWishemon = new GameObject("EnemyWishemon").AddComponent<Wishemon>();
+        _enemyWishemon.Initialize(enemyData);
+        _enemyWishemon.transform.SetParent(_wishemonSpawnPoint.transform);
+        _enemyWishemon.transform.localPosition = Vector3.zero;
+        _enemyWishemon.transform.localRotation = Quaternion.identity;
 
-        EnemyHealthBar.SetMax(enemyHP);
-        EnemyHealthBar.SetValue(enemyHP);
-/*
-        PlayerHealthBar.SetMax(playerData.Data.MaxHP);
-        PlayerHealthBar.SetValue(playerData.CurrentHP);
-*/
+        // TODO 
+
+        EnemyHealthBar.SetMax(_enemyWishemon.State.MaxHP);
+        EnemyHealthBar.SetValue(_enemyWishemon.State.CurrentHP);
+
+        PlayerHealthBar.SetMax(_playerWishemon.State.MaxHP);
+        PlayerHealthBar.SetValue(_playerWishemon.State.CurrentHP);
+
+        
     }
 
     // Create Wishemon
     // Handle dgt 
     // Handle turns
 
-        public void StartCombat()
+    public void StartCombat()
     {
         Debug.Log("Combat Started!");
     }
@@ -78,14 +82,35 @@ public class BattleManager : MonoBehaviour
 
     public void OpenAttackMenu()
     {
-            enemyHP -= 10;
+            int enemyHP = _enemyWishemon.State.TakeDamage(_playerWishemon.State.Attack,_playerWishemon.State.Type,_typesChart);
             EnemyHealthBar.SetValue(enemyHP);
+
+            Debug.Log($"Type multiplier: {multiplier}");
             Debug.Log("Enemy HP: " + enemyHP);
 
             if (enemyHP <= 0)
             {
-                Debug.Log("Enemy dead");
+                Debug.Log("Enemy Defeated!");
+                EndCombat(true);
             }
+
+            int playerHP = _playerWishemon.State.TakeDamage(_enemyWishemon.State.Attack,_enemyWishemon.State.Type,_typesChart);
+            PlayerHealthBar.SetValue(playerHP);
+            Debug.Log("Player HP: " + playerHP);
     }
+
+    public void EndCombat(bool playerWon)
+    {
+        if (playerWon)
+        {
+            Debug.Log("Player won the battle!");
+        }
+        else
+        {
+            Debug.Log("Player lost the battle!");
+        }
+        SceneManager.LoadScene("World");
+    }
+
 
 }

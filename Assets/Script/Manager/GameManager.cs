@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -8,8 +9,7 @@ public class GameManager : MonoBehaviour
 
     public WishemonData EncounteredWishemon;
 
-    public SaveData SaveData = new SaveData();
-
+    [SerializeField] public List<WishemonState> wishemonTeams = new List<WishemonState>();
     public WishemonData GetWishemonData()
     {
        return EncounteredWishemon;
@@ -27,14 +27,22 @@ public class GameManager : MonoBehaviour
 
     }
     
-    public WishemonSaveData GetFirstWishemon()
+    public WishemonState GetFirstWishemon()
     {
-        for (int i = 0; i < SaveData._teamWishemon.Count; i++)
+        for (int i = 0; i < wishemonTeams.Count; i++)
         {
-            if (SaveData._teamWishemon[i].CurrentHP > 0)
-                return SaveData._teamWishemon[i];
+            if (wishemonTeams[i].CurrentHP > 0)
+                return wishemonTeams[i];
         }
         return null;
+    }
+
+    public void HealPlayer()
+    {
+        foreach (var wishemon in wishemonTeams)
+        {
+            wishemon.CurrentHP = wishemon.MaxHP;
+        }
     }
 
 }
