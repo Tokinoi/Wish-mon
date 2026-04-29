@@ -3990,6 +3990,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8448425661093921293, guid: 7dd2cdec43f7b9b47ad5fcb9cb9e6e73, type: 3}
   m_PrefabInstance: {fileID: 588797279}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &610246572 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4917161800061181822, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+  m_PrefabInstance: {fileID: 891873474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &610246573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610246572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907ccf502cf539d4fafbd2c592092af3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealCollider
 --- !u!1001 &610959570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5632,6 +5649,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8448425661093921293, guid: 7dd2cdec43f7b9b47ad5fcb9cb9e6e73, type: 3}
   m_PrefabInstance: {fileID: 875195770}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &891873474
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4917161800061181822, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_Name
+      value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -56.36995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8695221
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.560665
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725926936995431876, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4123873976716102235, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4917161800061181822, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 610246573}
+  m_SourcePrefab: {fileID: 100100000, guid: cf5b8c8ecb47a504aba64fdeba36c5fd, type: 3}
 --- !u!1001 &893763748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6444,15 +6522,16 @@ MonoBehaviour:
   _playerPosition: {x: -80.5, y: 0.86952156, z: -12.24}
   _playerRotation: {x: 0, y: 0, z: 0, w: 1}
   EncounteredWishemon: {fileID: 0}
-  SaveData:
-    _teamWishemon:
-    - Data: {fileID: 11400000, guid: 8c9f2d2373103f84796e9db0ba860ef5, type: 2}
-      CurrentHP: 50
-      Level: 5
-    _boxWishemon: []
-    _capturedWishemonNames: []
-    _encounteredWishemonNames: []
-    _inventoryItems: []
+  wishemonTeams:
+  - Data: {fileID: 11400000, guid: 8c9f2d2373103f84796e9db0ba860ef5, type: 2}
+    CurrentHP: 50
+    Level: 1
+    Experience: 0
+    Moves:
+    - {fileID: 11400000, guid: 9f5845266539e694ba2cb5df3f1db889, type: 2}
+    - {fileID: 11400000, guid: b838fdf29fb23e04784a6639bd664d28, type: 2}
+    - {fileID: 11400000, guid: ff8adca30c085534ba3e9c1ef99dab04, type: 2}
+    - {fileID: 11400000, guid: 9574b32531ae69e4e9a4a0f4e19a3b8b, type: 2}
 --- !u!4 &978052917
 Transform:
   m_ObjectHideFlags: 0
@@ -12981,3 +13060,4 @@ SceneRoots:
   - {fileID: 168408747}
   - {fileID: 1210078095}
   - {fileID: 978052917}
+  - {fileID: 891873474}

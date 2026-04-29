@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Wishemon Card", menuName = "Config/Wishemon")]
 public class WishemonData : ScriptableObject
@@ -9,6 +10,9 @@ public class WishemonData : ScriptableObject
     public int Attack;
     public int Defense;
     public int Speed;
+
     public WishemonTypes Type;
     public GameObject WishemonPrefab;
+
+    public List<MoveLearnEntry> Learnset;
 }

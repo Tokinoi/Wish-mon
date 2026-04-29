@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance { get; private set; }
@@ -9,6 +12,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private ProgressBar PlayerHealthBar;
     [SerializeField] private ProgressBar EnemyHealthBar;
     [SerializeField] private TypeChart _typesChart;
+
+    [SerializeField] private GameObject _ActionChooser;
+    [SerializeField] private GameObject _AttackMenu;
+
     private Wishemon _playerWishemon;
     private Wishemon _enemyWishemon;
 
@@ -80,23 +87,42 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Opening WishemonPedia during Combat!");
     }
 
+    public void ChooseMove(int moveIndex)
+    {
+        Debug.Log($"Player chose move {_playerWishemon.State.Moves[moveIndex].Name}!");
+        Attack(_playerWishemon.State.Moves[moveIndex]);
+    }
+
     public void OpenAttackMenu()
     {
-            int enemyHP = _enemyWishemon.State.TakeDamage(_playerWishemon.State.Attack,_playerWishemon.State.Type,_typesChart);
+        _AttackMenu.SetActive(true);
+        _ActionChooser.SetActive(false);
+
+        Button[] buttons = _AttackMenu.GetComponentsInChildren<Button>();
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            TextMeshProUGUI text = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
+            text.text = _playerWishemon.State.Moves[i].Name;
+        }
+
+        Debug.Log("Opening Attack Menu!");
+    }
+
+    public void Attack(MoveData move)
+    {
+            int enemyHP = _enemyWishemon.State.TakeDamage(move,_typesChart);
             EnemyHealthBar.SetValue(enemyHP);
 
-            Debug.Log($"Type multiplier: {multiplier}");
-            Debug.Log("Enemy HP: " + enemyHP);
 
-            if (enemyHP <= 0)
+            if (_enemyWishemon.State.IsDead)
             {
-                Debug.Log("Enemy Defeated!");
+                _playerWishemon.State.GainXP(100); //TODO
                 EndCombat(true);
             }
 
-            int playerHP = _playerWishemon.State.TakeDamage(_enemyWishemon.State.Attack,_enemyWishemon.State.Type,_typesChart);
+            int playerHP = _playerWishemon.State.TakeDamage(_enemyWishemon.State.GetRandomMove(),_typesChart);
             PlayerHealthBar.SetValue(playerHP);
-            Debug.Log("Player HP: " + playerHP);
     }
 
     public void EndCombat(bool playerWon)

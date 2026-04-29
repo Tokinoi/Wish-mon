@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://127.0.0.1:9876)",
+      "Bash(curl -sv http://127.0.0.1:9876)",
+      "Bash(awk '{print $2}')",
+      "Bash(curl -sv http://10.255.255.254:9876)",
+      "Bash(ip route *)",
+      "Bash(ip addr *)",
+      "Bash(curl -sv http://172.27.48.1:9876)",
+      "Bash(curl -s http://172.27.48.1:9876/sse)",
+      "Bash(curl -s http://172.27.48.1:9876/mcp)",
+      "Bash(curl -s -X POST http://172.27.48.1:9876 -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"method\":\"initialize\",\"id\":1,\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"test\",\"version\":\"1.0\"}}}')",
+      "Bash(curl -s -N -H \"Accept: text/event-stream\" http://172.27.48.1:9876/mcp)",
+      "Bash(kill %1)",
+      "Bash(wait)",
+      "Bash(curl -s -N -H \"Accept: text/event-stream\" \"http://172.27.48.1:9876/\")",
+      "Bash(curl -s -X POST http://172.27.48.1:9876/mcp -H 'Accept: text/event-stream' -H 'Content-Type: application/json' -d '{\"jsonrpc\":\"2.0\",\"method\":\"initialize\",\"id\":1,\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"test\",\"version\":\"1.0\"}}}')",
+      "Bash(curl *)"
+    ]
+  }
+}

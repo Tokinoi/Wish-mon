@@ -5,6 +5,5 @@ public class HealCollider : NPCCollider
     override public void OnInteract()
     {
         GameManager.Instance.HealPlayer();
-        Debug.Log("Player healed!");
     }
 }

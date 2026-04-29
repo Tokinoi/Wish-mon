@@ -11,6 +11,11 @@ public class GrassCollider : MonoBehaviour
     private float _currentProbability = 0f;
 
 
+private void Awake()
+{
+    Debug.Log($"{gameObject.name} config = {_config}");
+}
+
     private void Start()
     {
         if (_grassPrefabs == null || _grassPrefabs.Count == 0) return;
